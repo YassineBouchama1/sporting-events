@@ -46,11 +46,11 @@ export class EventService {
           };
         }
 
-        
+
         return null;
       }));
 
-    
+
       const newParticipants = participantsData.filter(participant => participant !== null);
 
       // Insert new participants
@@ -74,10 +74,20 @@ export class EventService {
   }
 
   async findOne(id: string): Promise<Event> {
-    const event = await this.eventModel.findById(id).exec();
+
+    // return event details wth all participants
+    const event = await this.eventModel
+      .findById(id)
+      .populate({
+        path: 'participants',
+        select: 'name email',
+      })
+      .exec();
+
     if (!event) {
       throw new NotFoundException(`Event with ID ${id} not found`);
     }
+
     return event;
   }
 
