@@ -1,6 +1,6 @@
 import { IsArray, IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { StatusEvenet } from 'src/common/types/event.enum';
+import { StatusEvenet } from '../../common/types/event.enum';
 
 class ParticipantDto {
 @IsString()

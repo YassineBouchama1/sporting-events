@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional, IsString } from 'class-validator';
-import { StatusEvenet } from 'src/common/types/event.enum';
+import { StatusEvenet } from '../../common/types/event.enum';
 
 export class CreateEventDto {
 

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Event, EventDocument } from './schemas/event.schema';
 import { CreateEventWithParticipantsDto } from './dto/create-event-with-participants.dto';
-import { Participant, ParticipantDocument } from 'src/participant/schemas/participant.schema';
+import { Participant, ParticipantDocument } from '../participant/schemas/participant.schema';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 

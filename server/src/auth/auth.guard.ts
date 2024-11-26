@@ -49,7 +49,7 @@ export class AuthGuard implements CanActivate {
       // Add user info to request so u can access it from controller and services
       request.user = user;
       request.userId = user._id;
-      request.role = payload.role;
+
 
       return true;
     } catch (error) {
