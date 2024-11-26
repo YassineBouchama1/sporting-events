@@ -9,6 +9,10 @@ export class Event {
     @Prop()
     name: string;
 
+    @Prop({ default: 'https://avatar.iran.liara.run/public' })
+    logo?: string;
+
+
     @Prop({ enum: StatusEvenet, default: StatusEvenet.PUBLIC })
     status: string;
 

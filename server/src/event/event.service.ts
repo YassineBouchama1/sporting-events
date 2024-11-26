@@ -18,12 +18,18 @@ export class EventService {
 
   async createWithParticipants(createEventWithParticipantsDto: CreateEventWithParticipantsDto): Promise<Event> {
     try {
+
+
       // Create and save the event
       const createdEvent = new this.eventModel(createEventWithParticipantsDto);
       const savedEvent = await createdEvent.save();
 
+
+
       // Prepare participants data
       const participantsData = await Promise.all(createEventWithParticipantsDto.participants.map(async (participant) => {
+
+
         // Check if the participant already exists
         const existingParticipant = await this.userModel.findOne({ email: participant.email });
 
@@ -40,11 +46,11 @@ export class EventService {
           };
         }
 
-        // If participant exists, return null
+        
         return null;
       }));
 
-      // Filter out null values (existing participants)
+    
       const newParticipants = participantsData.filter(participant => participant !== null);
 
       // Insert new participants
