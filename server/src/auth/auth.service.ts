@@ -27,7 +27,7 @@ export class AuthService {
 
 
     console.log(signupData)
-    const { email, password, username } = signupData;
+    const { email, password, name } = signupData;
 
     // check if email is existing
     const emailIsExisting = await this.userModel.findOne({ email });
@@ -41,7 +41,7 @@ export class AuthService {
 
     // create user & save it
     const newUser = new this.userModel({
-      username,
+      name,
       email,
       password: hashedPassword,
 

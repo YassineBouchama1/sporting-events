@@ -8,9 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { configuration } from 'config/app.config';
 import { EventModule } from './event/event.module';
-import { ParticipantModule } from './participant/participant.module';
-import { Participant, ParticipantSchema } from './participant/schemas/participant.schema';
-import { EventSchema } from './event/schemas/event.schema';
+
 
 
 @Module({
@@ -46,12 +44,12 @@ import { EventSchema } from './event/schemas/event.schema';
       inject: [ConfigService],
     }),
 
-    
-    
+
+
     UserModule,
     AuthModule,
     EventModule,
-    ParticipantModule,
+
 
 
   ],

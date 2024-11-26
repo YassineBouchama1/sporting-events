@@ -36,7 +36,7 @@ describe('AuthController', () => {
 
         it('should return tokens on successful signup', async () => {
             const signupDto: SignupDto = {
-                username: 'testuser',
+                name: 'testuser',
                 email: 'test@example.com',
                 password: 'password123',
             };
@@ -50,7 +50,7 @@ describe('AuthController', () => {
         // Test case for signup failure
         it('should throw BadRequestException on signup failure', async () => {
             const signupDto: SignupDto = {
-                username: 'testuser',
+                name: 'testuser',
                 email: 'test@example.com',
                 password: 'password123',
             };

@@ -5,6 +5,7 @@ import { CreateEventWithParticipantsDto } from './dto/create-event-with-particip
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { NotFoundException } from '@nestjs/common';
+import { RoleTypes, StatusUser } from '../common/types/user.enum';
 
 describe('EventController', () => {
     let eventController: EventController;
@@ -39,7 +40,7 @@ describe('EventController', () => {
         it('should create an event with participants', async () => {
             const dto: CreateEventWithParticipantsDto = {
                 name: 'Test Event',
-                participants: [{ name: 'John Doe', email: 'john@example.com' }],
+                participants: [{ name: 'John Doe', email: 'john@example.com', password: 'john@example.com',status:StatusUser.ONLINE,role:RoleTypes.Participant }],
             };
 
             const result = { _id: 'eventId', ...dto };

@@ -1,51 +1,69 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, BadRequestException, UseGuards, Req, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { RoleTypes } from 'src/common/types/user.enum';
-import { RequestWithUser } from 'src/common/types/user.types';
+
+import { User } from './schemas/user.schema';
 
 @Controller('user')
 @UseGuards(AuthGuard)
-@Roles(RoleTypes.User)
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
-
-
-
-  @Get()
-  findAll(
-    @Req() Request: RequestWithUser,
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
-  ) {
+  @Get(':eventId')
+  findAll(@Param('eventId') eventId: string): Promise<User[]> {
     try {
-      return this.userService.findAll(page, limit, Request.userId)
+
+
+      return this.userService.findAll(eventId);
     } catch (error) {
-      throw new BadRequestException('Failed to retrieve users');
+
+      throw new BadRequestException('Failed ', error.message);
     }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<User> {
+
+    try {
+      const user = await this.userService.findOne(id);
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+      return user;
+    } catch (error) {
+
+      throw new BadRequestException('Failed ', error.message);
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+    try {
+      return this.userService.update(id, updateUserDto);
+    } catch (error) {
+
+      throw new BadRequestException('Failed ', error.message);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  remove(@Param('id') id: string): Promise<User> {
+    try {
+      return this.userService.remove(id);
+    } catch (error) {
+
+      throw new BadRequestException('Failed ', error.message);
+    }
   }
 }
