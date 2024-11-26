@@ -5,9 +5,9 @@ import { Event, EventDocument } from './schemas/event.schema';
 import { CreateEventWithParticipantsDto } from './dto/create-event-with-participants.dto';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { User, UserDocument } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from '../user/schemas/user.schema';
 import * as bcrypt from 'bcrypt';
-import { RoleTypes } from 'src/common/types/user.enum';
+import { RoleTypes } from '../common/types/user.enum';
 
 @Injectable()
 export class EventService {

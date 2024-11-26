@@ -11,27 +11,23 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
 
 import { User } from './schemas/user.schema';
 
 @Controller('user')
-@UseGuards(AuthGuard)
+
 export class UserController {
   constructor(private readonly userService: UserService) { }
+  @Get()
+  findAll(
 
-  @Get(':eventId')
-  findAll(@Param('eventId') eventId: string): Promise<User[]> {
+  ) {
     try {
-
-
-      return this.userService.findAll(eventId);
+      return this.userService.findAll()
     } catch (error) {
-
-      throw new BadRequestException('Failed ', error.message);
+      throw new BadRequestException('Failed to retrieve users');
     }
   }
-
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
 

@@ -1,7 +1,7 @@
 import { IsArray, IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { StatusEvenet } from '../../common/types/event.enum';
-import { User } from 'src/user/schemas/user.schema';
+import { User } from '../../user/schemas/user.schema';
 
 export class ParticipantDto {
     @IsString()

@@ -10,3 +10,13 @@ export class CreateEventDto {
     @IsOptional()
     status?: StatusEvenet;
 }
+
+
+export class ParticipantDto {
+    @IsString()
+    name: string;
+
+    @IsString()
+    email: string;
+}
+
