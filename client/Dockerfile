@@ -9,7 +9,7 @@ COPY ./client/package*.json ./
 RUN npm install --production
 
 
-COPY ./client ./
+COPY client .
 
 
 RUN npm run build

@@ -8,7 +8,7 @@ COPY ./server/package*.json ./
 RUN npm install --production
 
 
-COPY ./server ./
+COPY server .
 
 
 RUN npm run build
