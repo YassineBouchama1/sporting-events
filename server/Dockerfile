@@ -2,10 +2,14 @@ FROM node:20
 
 WORKDIR /app
 
-COPY ./server/package*.json ./
+
+COPY server/package*.json ./
 
 
-RUN npm install --production
+RUN npm install
+
+
+RUN npm install -g @nestjs/cli
 
 
 COPY server .
