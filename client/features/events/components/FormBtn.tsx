@@ -1,15 +1,15 @@
 "use client";
 import Modal from "@/components/Modal";
 import React, { useState } from "react";
-import RoomForm from "./EventForm";
 import { FaPlus } from "react-icons/fa";
-import { useEventStore } from "../store/eventStore";
+import { useEventFormStore } from "../store/eventFormStore";
+import CreateEvent from "./CreateEvent";
 
 
 
 export default function FormBtn() {
 
-  const { isModalOpen, openModal, closeModal } = useEventStore()
+  const { isModalOpen, openModal, closeModal } = useEventFormStore()
 
 
   return (
@@ -27,7 +27,7 @@ export default function FormBtn() {
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => closeModal()}>
-        <RoomForm />
+        <CreateEvent />
       </Modal>
     </>
   );

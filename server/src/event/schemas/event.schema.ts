@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 import { StatusEvenet } from '../../common/types/event.enum';
+import { User } from 'src/user/schemas/user.schema';
 
 export type EventDocument = HydratedDocument<Event>;
 
@@ -22,7 +23,7 @@ export class Event {
     status: string;
 
     @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }], default: [] })
-    participants: Types.ObjectId[];
+    participants: Types.ObjectId[] | User[];
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

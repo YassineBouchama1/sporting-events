@@ -10,7 +10,7 @@ export enum RoleTypes {
 }
 export interface Member {
   _id: string;
-  username: string;
+  name: string;
   avatar: string;
   email: string;
   status: StatusUser;
@@ -18,7 +18,7 @@ export interface Member {
 
 export interface User {
   _id: string;
-  username: string;
+  name: string;
   avatar: string;
   email: string;
   password?: string;

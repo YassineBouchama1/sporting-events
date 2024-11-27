@@ -27,7 +27,6 @@ export class CreateEventWithParticipantsDto {
     endDate: string;
 
     @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => ParticipantDto)
-    participants: User[];
+    @IsString({ each: true })
+    participantIds: string[];
 }

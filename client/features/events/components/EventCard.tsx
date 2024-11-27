@@ -7,6 +7,7 @@ import Button from "@/components/Button";
 import { Event } from "@/types/event";
 import { useDeleteEvent } from "../hooks/useDeleteEvent";
 import { useEventPDF } from "@/hooks/useEventsPDF";
+import { useEventDetailStore } from "../store/eventDetailStore";
 
 interface EventCardProps {
   event: Event;
@@ -15,6 +16,7 @@ interface EventCardProps {
 const EventCard = memo(({ event }: EventCardProps) => {
   const { handleDelete, isLoading } = useDeleteEvent();
   const { generatePDF, isGenerating } = useEventPDF({ event }); // call function to generate pdf 
+  const { setEvent } = useEventDetailStore()
 
 
 
@@ -83,8 +85,10 @@ const EventCard = memo(({ event }: EventCardProps) => {
         >
           {deleteButtonContent}
         </Button>
-        <Button disabled={isLoading} type="button">
-          Update
+        <Button
+          onClick={() => setEvent(event._id)} // on click open event details
+          type="button">
+          View
         </Button>
       </div>
     ),

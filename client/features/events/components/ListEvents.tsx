@@ -3,11 +3,16 @@ import type { FC } from "react";
 import useEventsList from "../hooks/useEventsList";
 import EventCard from "./EventCard";
 import EventCardSkeleton from "@/components/skeletons/EventCardSkeleton";
+import Modal from "@/components/Modal";
+import EventDetails from "./EventDetails";
+import { useEventDetailStore } from "../store/eventDetailStore";
 
 interface ListEventsProps { }
 
 const ListEvents: FC<ListEventsProps> = ({ }) => {
   const { events, error, isLoading, refetch } = useEventsList(); // fetch events
+
+  const { isModalDetailOpen, closeModalDetail } = useEventDetailStore()
 
 
   if (isLoading) {
@@ -29,7 +34,9 @@ const ListEvents: FC<ListEventsProps> = ({ }) => {
       ) : (
         <p>No rooms available</p>
       )}
-
+      <Modal isOpen={isModalDetailOpen} onClose={() => closeModalDetail()}>
+        <EventDetails />
+      </Modal>
     </>
   );
 };

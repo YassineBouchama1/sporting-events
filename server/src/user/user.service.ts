@@ -11,7 +11,7 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find({ role: RoleTypes.Participant }).exec(); // bring only users that have role Participant
+    return this.userModel.find({ role: RoleTypes.Participant }, { password: 0 }).exec(); // bring only users that have role Participant
   }
 
   async findOne(id: string): Promise<User> {

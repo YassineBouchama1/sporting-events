@@ -10,7 +10,7 @@ export class EventController {
   constructor(private readonly eventService: EventService) { }
 
   @Post()
-  createWithParticipants(@Body() createEventWithParticipantsDto: CreateEventWithParticipantsDto): Promise<Event> {
+  createWithParticipants(@Body() createEventWithParticipantsDto: CreateEventWithParticipantsDto): Promise<String> {
     return this.eventService.createWithParticipants(createEventWithParticipantsDto);
   }
 

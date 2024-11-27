@@ -1,5 +1,6 @@
 "use client";
 
+import { delay } from "@/utils";
 import axiosInstance from "@/utils/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
@@ -7,6 +8,7 @@ import toast from "react-hot-toast";
 
 
 const deleteEventApi = async (eventId: string) => {
+    await delay(2000) // add delay to check loading 
     const response = await axiosInstance.delete(`/events/${eventId}`);
     return response.data;
 };

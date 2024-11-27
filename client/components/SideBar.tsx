@@ -6,18 +6,20 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import Avatar from "./Avatar";
+import { FaUsers } from "react-icons/fa6";
+import { MdDashboard } from "react-icons/md";
 
 export default function SideBar() {
 
   const pathname = usePathname();
-    const { logout } = useAuth();
-    const router = useRouter();
+  const { logout } = useAuth();
+  const router = useRouter();
 
 
-    function onlogout() {
-      logout();
-      router.push("/auth");
-    }
+  function onlogout() {
+    logout();
+    router.push("/auth");
+  }
 
   const ACTIVE_ROUTE =
     "bg-gray-800 text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover";
@@ -33,47 +35,19 @@ export default function SideBar() {
           className={pathname === "/dashboard" ? ACTIVE_ROUTE : INACTIVE_ROUTE}
           href="#"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 sm:h-6 sm:w-6"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-          </svg>
+
+          <MdDashboard className="h-5 w-5 sm:h-6 sm:w-6" />
         </Link>
 
         <Link
-          className={pathname === "/search" ? ACTIVE_ROUTE : INACTIVE_ROUTE}
-          href="/search"
+          className={pathname === "/participans" ? ACTIVE_ROUTE : INACTIVE_ROUTE}
+          href="/participans"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="h-5 w-5 sm:h-6 sm:w-6"
-            viewBox="0 0 16 16"
-          >
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />{" "}
-          </svg>
+          <FaUsers className="h-5 w-5 sm:h-6 sm:w-6" />
         </Link>
       </nav>
       <div className="flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2">
-        <button className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 sm:h-6 sm:w-6"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
+
         <button
           className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
           onClick={() => onlogout()}
@@ -94,7 +68,7 @@ export default function SideBar() {
         <Avatar />
         <p className="text-white">
 
-       
+
         </p>
       </div>
     </div>
