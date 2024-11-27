@@ -2,9 +2,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
 
-const ENCRYPTION_KEY = process.env.VITE_ENCRYPTION_KEY || "default_key";
-const AUTH_TOKEN_COOKIE = process.env.VITE_AUTH_TOKEN_COOKIE || "authToken";
-const API_URL = process.env.VITE_API_URL || "";
+const ENCRYPTION_KEY = process.env.NEXT_PUBLIC_ENCRYPTION_KEY || "default_key";
+const AUTH_TOKEN_COOKIE = process.env.NEXT_PUBLIC_AUTH_TOKEN_COOKIE || "authToken";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
