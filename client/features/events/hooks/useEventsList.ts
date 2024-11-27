@@ -1,8 +1,9 @@
+import { Event } from "@/types/event";
 import axiosInstance from "@/utils/axiosInstance";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-const fetchEvents = async (): Promise<any[]> => {
-    const response = await axiosInstance.get<any>('/events');
+const fetchEvents = async (): Promise<Event[]> => {
+    const response = await axiosInstance.get<Event[]>('/events');
     return response.data;
 };
 
@@ -12,26 +13,20 @@ const fetchEvents = async (): Promise<any[]> => {
 
 
 const useEventsList = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const { data: events, isLoading, error } = useQuery<any[], Error>({
+    const { data: events, isLoading, error, refetch } = useQuery<Event[], Error>({
         queryKey: ['events'],
         queryFn: fetchEvents,
-      
+
     });
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+
 
     return {
         events,
         isLoading,
         error,
-    
-        isModalOpen,
-        openModal,
-        closeModal,
-       
+        refetch
     };
 };
 

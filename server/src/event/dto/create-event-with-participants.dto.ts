@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsDateString, IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { StatusEvenet } from '../../common/types/event.enum';
 import { User } from '../../user/schemas/user.schema';
@@ -19,6 +19,12 @@ export class CreateEventWithParticipantsDto {
     @IsEnum(StatusEvenet)
     @IsOptional()
     status?: StatusEvenet;
+
+    @IsDateString()
+    startDate: string;
+
+    @IsDateString()
+    endDate: string;
 
     @IsArray()
     @ValidateNested({ each: true })

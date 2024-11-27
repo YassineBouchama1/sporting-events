@@ -12,6 +12,11 @@ export class Event {
     @Prop({ default: 'https://avatar.iran.liara.run/public' })
     logo?: string;
 
+    @Prop()
+    startDate: Date;
+
+    @Prop()
+    endDate: Date;
 
     @Prop({ enum: StatusEvenet, default: StatusEvenet.PUBLIC })
     status: string;

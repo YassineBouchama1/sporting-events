@@ -1,22 +1,68 @@
-// import { useDeleteRoomMutation } from "@/services/apis/roomApiSlice";
-// import { useCallback } from "react";
-// import toast from "react-hot-toast";
+"use client";
 
-// export const useDeleteEvent = () => {
-//   const [deleteRoom, { isLoading, error }] = useDeleteEventMutation();
+import axiosInstance from "@/utils/axiosInstance";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useMemo } from "react";
+import toast from "react-hot-toast";
 
-//   const handleDelete = useCallback(
-//     async (roomId:string) => {
-//       try {
-//         await deleteRoom(roomId).unwrap();
-//         toast.success("Room deleted successfully!");
-//       } catch (err:any) {
-//         toast.error(err.data?.message || "Failed to delete room");
-//         console.error("Error deleting room:", err);
-//       }
-//     },
-//     [deleteRoom]
-//   );
 
-//   return { handleDelete, isLoading, error };
-// };
+const deleteEventApi = async (eventId: string) => {
+    const response = await axiosInstance.delete(`/events/${eventId}`);
+    return response.data;
+};
+
+
+export const useDeleteEvent = () => {
+    const queryClient = useQueryClient();
+
+
+    const toastConfig = useMemo(
+        () => ({
+            success: {
+                duration: 4000,
+                style: {
+                    background: "#333",
+                    color: "#fff",
+                },
+            },
+            error: {
+                duration: 4000,
+                style: {
+                    background: "#FF4444",
+                    color: "#fff",
+                },
+            },
+        }),
+        []
+    );
+
+    // this is delete mutation
+    const deleteMutation = useMutation({
+        mutationFn: deleteEventApi,
+        onSuccess: () => {
+
+            // after succeffully even deleted refrech list of thata
+            queryClient.invalidateQueries({ queryKey: ["events"] });
+            toast.success("Event deleted successfully!", toastConfig.success);
+        },
+        onError: (error: any) => {
+            const errorMessage = error?.response?.data?.message || "Failed to delete event";
+            toast.error(errorMessage, toastConfig.error);
+            console.error("Error deleting event:", error);
+        },
+    });
+
+    //  hanlde delete
+    const handleDelete = useCallback(
+        async (eventId: string) => {
+            deleteMutation.mutate(eventId);
+        },
+        [deleteMutation]
+    );
+
+    return {
+        handleDelete,
+        isLoading: deleteMutation.isPending,
+        error: deleteMutation.error,
+    };
+};
