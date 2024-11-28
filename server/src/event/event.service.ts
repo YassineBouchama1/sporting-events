@@ -183,7 +183,7 @@ export class EventService {
   }
 
 
-  
+
 
   async remove(id: string): Promise<Event> {
     const deletedEvent = await this.eventModel.findByIdAndDelete(id).exec();

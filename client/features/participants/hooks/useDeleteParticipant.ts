@@ -1,4 +1,3 @@
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import axiosInstance from '@/utils/axiosInstance';
@@ -13,6 +12,8 @@ export const useDeleteParticipant = () => {
             await axiosInstance.delete(`/user/${participantId}`);
         },
         onSuccess: () => {
+
+            // after delete invalide 
             toast.success('Participant deleted successfully');
             queryClient.invalidateQueries({ queryKey: ['participants'] });
             queryClient.invalidateQueries({ queryKey: ["event"] });
@@ -25,7 +26,6 @@ export const useDeleteParticipant = () => {
     });
 
     return {
-
         deleteParticipant: deleteMutation.mutate,
         isDeletingParticipant: deleteMutation.isPending,
     };
