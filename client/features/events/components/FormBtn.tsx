@@ -22,7 +22,7 @@ export default function FormBtn() {
           <FaPlus />
         </div>
         <p className="text-white/50 group-hover:text-white group-hover:smooth-hover text-center">
-          Create group
+          Create Event
         </p>
       </div>
 

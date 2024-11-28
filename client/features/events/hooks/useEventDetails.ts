@@ -32,7 +32,7 @@ export const useEventDetails = (eventId: string) => {
         },
         onSuccess: () => { // after successfully  update event update venets list
             toast.success("Event updated successfully");
-            queryClient.invalidateQueries({ queryKey: ["events", eventId] });
+            queryClient.invalidateQueries({ queryKey: ["events"] });
             queryClient.invalidateQueries({ queryKey: ["event", eventId] });
         },
         onError: (error) => {
