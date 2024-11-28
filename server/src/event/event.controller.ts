@@ -7,11 +7,15 @@ import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller('events')
 export class EventController {
-  constructor(private readonly eventService: EventService) { }
+  constructor(private readonly eventService: EventService) {}
 
   @Post()
-  createWithParticipants(@Body() createEventWithParticipantsDto: CreateEventWithParticipantsDto): Promise<String> {
-    return this.eventService.createWithParticipants(createEventWithParticipantsDto);
+  createWithParticipants(
+    @Body() createEventWithParticipantsDto: CreateEventWithParticipantsDto,
+  ): Promise<String> {
+    return this.eventService.createWithParticipants(
+      createEventWithParticipantsDto,
+    );
   }
 
   @Post('only')
@@ -19,7 +23,6 @@ export class EventController {
     try {
       return this.eventService.create(createEventDto);
     } catch (error) {
-
       throw new BadRequestException('Failed ', error.message);
     }
   }
@@ -29,7 +32,6 @@ export class EventController {
     try {
       return this.eventService.findAll();
     } catch (error) {
-
       throw new BadRequestException('Failed ', error.message);
     }
   }
@@ -39,18 +41,28 @@ export class EventController {
     try {
       return this.eventService.findOne(id);
     } catch (error) {
-
       throw new BadRequestException('Failed ', error.message);
     }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto): Promise<Event> {
+  update(
+    @Param('id') id: string,
+    @Body() updateEventDto: UpdateEventDto,
+  ): Promise<Event> {
     try {
       return this.eventService.update(id, updateEventDto);
     } catch (error) {
       throw new BadRequestException('Failed ', error.message);
     }
+  }
+
+  @Delete(':eventId/participants/:participantId')
+  async removeParticipant(
+    @Param('eventId') eventId: string,
+    @Param('participantId') participantId: string,
+  ) {
+    return this.eventService.removeParticipant(eventId, participantId);
   }
 
   @Delete(':id')

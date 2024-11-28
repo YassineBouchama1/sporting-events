@@ -7,9 +7,8 @@ import Modal from "@/components/Modal";
 import EventDetails from "./EventDetails";
 import { useEventDetailStore } from "../store/eventDetailStore";
 
-interface ListEventsProps { }
 
-const ListEvents: FC<ListEventsProps> = ({ }) => {
+const ListEvents: FC = ({ }) => {
   const { events, error, isLoading, refetch } = useEventsList(); // fetch events
 
   const { isModalDetailOpen, closeModalDetail } = useEventDetailStore()

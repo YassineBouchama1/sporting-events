@@ -1,6 +1,6 @@
 "use client";
 import Modal from "@/components/Modal";
-import React, { useState } from "react";
+import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useEventFormStore } from "../store/eventFormStore";
 import CreateEvent from "./CreateEvent";

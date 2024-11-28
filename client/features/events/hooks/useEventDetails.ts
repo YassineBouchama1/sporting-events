@@ -20,16 +20,20 @@ export const useEventDetails = (eventId: string) => {
         enabled: !!eventId, // fetch onlyeventid ava
     });
 
+    interface UpdateEventData extends EventFormUpdateData {
+        participants?: string[]
+    }
 
 
     const updateMutation = useMutation({
-        mutationFn: async (data: EventFormUpdateData) => {
+        mutationFn: async (data: UpdateEventData) => {
             const response = await axiosInstance.patch(`/events/${eventId}`, data);
             return response.data;
         },
         onSuccess: () => { // after successfully  update event update venets list
             toast.success("Event updated successfully");
             queryClient.invalidateQueries({ queryKey: ["events", eventId] });
+            queryClient.invalidateQueries({ queryKey: ["event", eventId] });
         },
         onError: (error) => {
             toast.error("Failed to update event");

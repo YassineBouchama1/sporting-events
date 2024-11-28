@@ -6,9 +6,9 @@ import Modal from "@/components/Modal";
 import CreateEvent from "./CreateEvent";
 import { useEventFormStore } from "../store/eventFormStore";
 
-interface WapperCreateEventProps { }
 
-const WapperCreateEvent: FC<WapperCreateEventProps> = ({ }) => {
+
+const WapperCreateEvent: FC = ({ }) => {
 
     const { isModalOpen, closeModal } = useEventFormStore()
 

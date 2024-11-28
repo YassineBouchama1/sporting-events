@@ -1,21 +1,23 @@
-import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
 import { StatusEvenet } from '../../common/types/event.enum';
 
 export class CreateEventDto {
+  @IsString()
+  name: string;
 
-    @IsString()
-    name: string;
+  @IsEnum(StatusEvenet)
+  @IsOptional()
+  status?: StatusEvenet;
 
-    @IsEnum(StatusEvenet)
-    @IsOptional()
-    status?: StatusEvenet;
+  @IsDateString()
+  startDate: string;
 
+  @IsDateString()
+  endDate: string;
 
-    @IsDateString()
-    startDate: string;
-
-    @IsDateString()
-    endDate: string;
+  @IsArray()
+  @IsString({ each: true })
+  participants?: string[];
 }
 
 

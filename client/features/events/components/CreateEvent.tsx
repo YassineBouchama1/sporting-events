@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { memo, useCallback, useMemo } from 'react';
@@ -76,6 +77,7 @@ const CreateEvent = memo(() => {
                     />
                 </div>
 
+
                 <div className="flex items-center space-x-4">
                     <label className="text-white">Status:</label>
                     <Controller
@@ -100,6 +102,7 @@ const CreateEvent = memo(() => {
                         </span>
                     )}
                 </div>
+             
 
                 <Controller
                     name="participantIds"

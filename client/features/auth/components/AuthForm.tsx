@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -22,7 +23,7 @@ const AuthForm = () => {
     register: registerForm,
     handleSubmit,
     formState: { errors },
-    reset,
+
   } = useForm<LoginFormType | RegisterFormType>({
     resolver: formResolver,
   });
