@@ -13,7 +13,7 @@ const page: FC<pageProps> = ({ }) => {
         <h3 className="text-3xl font-extralight text-white/50">Events</h3>
 
       </div>
-      <div className="mb-10 sm:mb-0 mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="  mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <WapperCreateEvent />
         <FormBtn />
         <ListEvents />

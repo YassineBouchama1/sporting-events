@@ -1,9 +1,9 @@
 "use client";
 
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {  RiLoader2Fill, RiEditLine, RiSaveLine } from "react-icons/ri";
+import { RiLoader2Fill, RiEditLine, RiSaveLine, RiDeleteBin6Line } from "react-icons/ri";
 import Image from "next/image";
 import Button from "@/components/Button";
 import Input from "@/components/inputs/Input";
@@ -13,6 +13,7 @@ import { useEventDetailStore } from "../store/eventDetailStore";
 import { formatDateTime } from "@/utils";
 
 import { EventFormUpdateData, EventFormUpdateSchema } from "@/types/event";
+import { useDeleteParticipant } from "@/features/participants/hooks/useDeleteParticipant";
 
 const EventDetails = memo(() => {
     const [isEditing, setIsEditing] = useState(false);
@@ -27,6 +28,7 @@ const EventDetails = memo(() => {
         updateEvent,
         isUpdating,
     } = useEventDetails(eventId);
+    const { deleteParticipant, isDeletingParticipant } = useDeleteParticipant();
 
 
 
@@ -88,6 +90,8 @@ const EventDetails = memo(() => {
         }
     };
 
+
+
     if (isLoading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -104,6 +108,7 @@ const EventDetails = memo(() => {
         );
     }
 
+    ;
 
     return (
         <div className="bg-gray-900 p-6 rounded-lg">
@@ -209,6 +214,7 @@ const EventDetails = memo(() => {
                                     <th className="px-4 py-2 text-left text-white">#</th>
                                     <th className="px-4 py-2 text-left text-white">Name</th>
                                     <th className="px-4 py-2 text-left text-white">Email</th>
+                                    <th className="px-4 py-2 text-left text-white">actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -217,6 +223,16 @@ const EventDetails = memo(() => {
                                         <td className="px-4 py-2 text-gray-300">{index + 1}</td>
                                         <td className="px-4 py-2 text-white">{participant.name}</td>
                                         <td className="px-4 py-2 text-gray-300">{participant.email}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <Button
+                                                onClick={() => deleteParticipant(participant._id)}
+                                                danger
+
+                                                disabled={isDeletingParticipant}
+                                            >
+                                                <RiDeleteBin6Line className="w-4 h-4" />
+                                            </Button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -256,6 +272,7 @@ const EventDetails = memo(() => {
                     </Button>
                 </div>
             </form>
+
         </div>
     );
 });

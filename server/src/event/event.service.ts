@@ -61,7 +61,7 @@ export class EventService {
       .populate({
         path: 'participants',
         model: 'User',
-        select: 'name email -_id'
+        select: 'name email _id'
       })
       .exec();
   }
@@ -74,7 +74,7 @@ export class EventService {
       .populate({
         path: 'participants',
         model: 'User',
-        select: 'name email -_id'
+        select: 'name email _id'
       })
       .exec();
 

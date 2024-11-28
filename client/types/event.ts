@@ -45,6 +45,7 @@ export enum EventStatus {
 
 // this type for participant
 export interface Participant {
+    _id: string;
     name: string;
     email: string;
 }

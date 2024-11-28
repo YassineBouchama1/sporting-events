@@ -40,8 +40,8 @@ export default function SideBar() {
         </Link>
 
         <Link
-          className={pathname === "/participans" ? ACTIVE_ROUTE : INACTIVE_ROUTE}
-          href="/participans"
+          className={pathname === "/dashboard/participans" ? ACTIVE_ROUTE : INACTIVE_ROUTE}
+          href="/dashboard/participans"
         >
           <FaUsers className="h-5 w-5 sm:h-6 sm:w-6" />
         </Link>
