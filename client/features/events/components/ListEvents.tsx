@@ -15,7 +15,12 @@ const ListEvents: FC = ({ }) => {
 
 
   if (isLoading) {
-    return <EventCardSkeleton />
+    return (
+      <>
+        <EventCardSkeleton />
+        <EventCardSkeleton />
+      </>
+    )
 
 
 
