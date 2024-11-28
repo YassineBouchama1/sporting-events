@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
-import { User, UserDocument } from 'src/user/schemas/user.schema';
+import { User, UserDocument } from '../user/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -15,8 +15,8 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
- 
-    @InjectModel(User.name) private userModel: Model<UserDocument>, 
+
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
 
 
     private jwtService: JwtService,
@@ -27,7 +27,7 @@ export class AuthService {
 
 
     console.log(signupData)
-    const { email, password, username, role } = signupData;
+    const { email, password, name } = signupData;
 
     // check if email is existing
     const emailIsExisting = await this.userModel.findOne({ email });
@@ -41,11 +41,10 @@ export class AuthService {
 
     // create user & save it
     const newUser = new this.userModel({
-      username,
+      name,
       email,
       password: hashedPassword,
-      role,
-      isOnline: true,
+
     });
     await newUser.save();
 
@@ -88,7 +87,7 @@ export class AuthService {
   //this func generate token for  user
   async generateUserTokens(user: UserDocument) {
     // create payload
-    const payload = { id: user.id, role: user.role };
+    const payload = { id: user.id };
 
     // generate new access token
     const access_token = await this.jwtService.signAsync(payload);

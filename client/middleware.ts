@@ -37,7 +37,7 @@ export const isAuthRoute = (path: string, routes: string[]) =>
   routes.some((route) => path.startsWith(route));
 
 export default async function middleware(req: NextRequest) {
-  const authRoutes = ["/"];
+  const authRoutes = ["/dashboard"];
   const authRoutesAdmin = ["/admin", "/admin/*"];
   const authRoutesUser = ["/"];
 

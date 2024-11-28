@@ -1,11 +1,10 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
-import { RoleTypes } from "src/common/types/user.enum";
 
 export class SignupDto {
 
     @IsNotEmpty()
     @IsString()
-    readonly username: string;
+    readonly name: string;
 
     @IsNotEmpty()
     @IsEmail()
@@ -19,7 +18,5 @@ export class SignupDto {
 
 
 
-    @IsEnum(RoleTypes)
-    @IsOptional()
-    role: RoleTypes
+
 }

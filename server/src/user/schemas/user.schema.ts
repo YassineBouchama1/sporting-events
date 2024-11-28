@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
-import { RoleTypes, StatusUser } from 'src/common/types/user.enum';
+import { HydratedDocument, Schema as MongooseSchema, Types } from 'mongoose';
+import { RoleTypes, StatusUser } from '../../common/types/user.enum';
 
 
 export type UserDocument = HydratedDocument<User>;
@@ -8,10 +8,7 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({ collection: 'users', timestamps: true })
 export class User {
   @Prop()
-  username: string;
-
-  @Prop({ default: 'https://avatar.iran.liara.run/public' })
-  avatar: string;
+  name: string;
 
   @Prop({ required: true, unique: true })
   email: string;
@@ -19,7 +16,7 @@ export class User {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ enum: RoleTypes, default: RoleTypes.Admin })
+  @Prop({ enum: RoleTypes, default: RoleTypes.Participant })
   role: string;
 
   @Prop({ enum: StatusUser, default: StatusUser.OFFLINE })
@@ -29,4 +26,3 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
- 

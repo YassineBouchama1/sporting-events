@@ -1,5 +1,5 @@
 export enum RoleTypes {
-  User = 'user',
+  Participant = 'Participant',
   Admin = 'admin',
   Guest = 'guest',
 }
