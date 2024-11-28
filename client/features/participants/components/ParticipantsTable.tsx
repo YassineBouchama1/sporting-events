@@ -14,6 +14,7 @@ import { usePaticipantFormStore } from '../store/PaticipantFormStore';
 const ParticipantsTable = memo(() => {
     const { participants, isLoading } = useParticipants();
     const { openModal } = usePaticipantFormStore()
+
     const {
         sortConfig,
         handleSort,
@@ -26,6 +27,8 @@ const ParticipantsTable = memo(() => {
         isDeletingParticipant
     } = useParticipantsTable(participants);
 
+
+
     if (isLoading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -33,6 +36,9 @@ const ParticipantsTable = memo(() => {
             </div>
         );
     }
+
+
+
 
     return (
         <div className="space-y-4 w-full">
@@ -57,6 +63,7 @@ const ParticipantsTable = memo(() => {
                             participants={sortedParticipants}
                             onDeleteClick={handleDeleteClick}
                             isDeletingParticipant={isDeletingParticipant}
+
                         />
                     </table>
                 </div>

@@ -18,6 +18,5 @@ export const useParticipants = () => {
     return {
         participants,
         isLoading,
-
     };
 };
