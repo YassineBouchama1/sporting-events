@@ -62,20 +62,96 @@ describe('UserController', () => {
 
  
 
-  describe('findONe',()=>{
-
-    it('should return a single user', async () => {
+  describe('findONe', () => {
+    it('should return a single user', async () => {
       jest.spyOn(service, 'findOne').mockResolvedValue(mockUser);
 
       expect(await controller.findOne('someId')).toBe(mockUser);
     });
+
+    it('should throw NotFoundException when user not found', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValue(null);
+
+      await expect(controller.findOne('nonexistentId')).rejects.toThrow(
+        BadRequestException,
+      );
+    });
   })
 
-it('should throw NotFoundException when user not found', async () => {
-  jest.spyOn(service, 'findOne').mockResolvedValue(null);
+  describe("create user",()=>{
+    it("create user successfully",async()=>{
+   const createUserDto: CreateUserDto = {
+     name: 'New User',
+     email: 'new@example.com',
+   };
+        jest.spyOn(service, 'create').mockResolvedValue(mockUser);
 
-  await expect(controller.findOne('nonexistentId')).rejects.toThrow(
-    BadRequestException,
-  );
-});
+        expect(await controller.create(createUserDto)).toBe(mockUser);
+    })
+
+
+        it('throw error while create user', async () => {
+   const createUserDto: CreateUserDto = {
+     name: 'New User',
+     email: 'new@example.com',
+   };
+
+
+         jest
+           .spyOn(service, 'create')
+           .mockRejectedValue(new BadRequestException());
+
+         await expect(controller.create(createUserDto)).rejects.toThrow(
+           BadRequestException,
+         );
+        });
+  })
+
+
+
+  describe('update', () => {
+    it('should update a user', async () => {
+      const updateUserDto: UpdateUserDto = {
+        name: 'Updated Name',
+      };
+
+      jest.spyOn(service, 'update').mockResolvedValue(mockUser);
+
+      expect(await controller.update('someId', updateUserDto)).toBe(mockUser);
+    });
+
+    it('should throw BadRequestException when service fails', async () => {
+      const updateUserDto: UpdateUserDto = {
+        name: 'Updated Name',
+      };
+
+      jest
+        .spyOn(service, 'update')
+        .mockRejectedValue(new BadRequestException());
+
+      await expect(controller.update('someId', updateUserDto)).rejects.toThrow(
+        BadRequestException,
+      );
+    });
+  });
+
+  describe('remove', () => {
+    it('should remove a user', async () => {
+      jest.spyOn(service, 'remove').mockResolvedValue(mockUser);
+
+      expect(await controller.remove('someId')).toBe(mockUser);
+    });
+
+    it('should throw BadRequestException when service fails', async () => {
+      jest
+        .spyOn(service, 'remove')
+        .mockRejectedValue(new BadRequestException());
+
+      await expect(controller.remove('someId')).rejects.toThrow(
+        BadRequestException,
+      );
+    });
+  });
+
+
 });
