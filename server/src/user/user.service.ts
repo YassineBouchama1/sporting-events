@@ -6,7 +6,7 @@ import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { RoleTypes } from '../common/types/user.enum';
 import * as bcrypt from 'bcrypt';
-import { Event, EventDocument } from 'src/event/schemas/event.schema';
+import { Event, EventDocument } from '../event/schemas/event.schema';
 
 @Injectable()
 export class UserService {

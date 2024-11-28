@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../user/schemas/user.schema';
-import { Event, EventSchema } from 'src/event/schemas/event.schema';
+import { Event, EventSchema } from '../event/schemas/event.schema';
 
 @Module({
   imports: [
