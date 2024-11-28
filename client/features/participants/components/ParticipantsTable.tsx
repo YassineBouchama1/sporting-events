@@ -1,6 +1,6 @@
 'use client'
 import { memo } from 'react';
-import { RiLoader2Fill, RiAddLine } from 'react-icons/ri';
+import { RiAddLine } from 'react-icons/ri';
 import ParticipantsTableHeader from './ParticipantsTableHeader';
 import ParticipantsTableBody from './ParticipantsTableBody';
 import DeleteParticipantModal from './DeleteParticipantModal';
@@ -29,13 +29,7 @@ const ParticipantsTable = memo(() => {
 
 
 
-    if (isLoading) {
-        return (
-            <div className="flex items-center justify-center min-h-[400px]">
-                <RiLoader2Fill className="animate-spin text-4xl text-white" />
-            </div>
-        );
-    }
+
 
 
 
@@ -63,12 +57,13 @@ const ParticipantsTable = memo(() => {
                             participants={sortedParticipants}
                             onDeleteClick={handleDeleteClick}
                             isDeletingParticipant={isDeletingParticipant}
+                            isParticipantsLoading={isLoading}
 
                         />
                     </table>
                 </div>
 
-                {participants.length === 0 && (
+                {!isLoading && participants.length === 0 && (
                     <div className="text-center py-8 text-gray-400">
                         No participants found
                     </div>

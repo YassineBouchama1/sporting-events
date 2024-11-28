@@ -6,6 +6,7 @@ import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import { useCreateParticipant } from '../hooks/useCreateParticipant';
 import { usePaticipantFormStore } from '../store/PaticipantFormStore';
+import Input from '@/components/inputs/Input';
 
 const createParticipantSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -51,47 +52,27 @@ const CreateParticipantForm = () => {
         >
             <form
                 onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <h4 className='text-white font-bold'>Create New Participant</h4>
                 <div>
-                    <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-gray-200"
-                    >
-                        Name
-                    </label>
-                    <input
-                        {...register('name')}
-                        type="text"
+
+                    <Input
+                        label="Name"
                         id="name"
-                        className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="Enter name"
+                        register={register}
+                        errors={errors}
                     />
-                    {errors.name && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {errors.name.message}
-                        </p>
-                    )}
                 </div>
 
-                <div>
-                    <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-200"
-                    >
-                        Email
-                    </label>
-                    <input
-                        {...register('email')}
-                        type="email"
-                        id="email"
-                        className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="Enter email"
-                    />
-                    {errors.email && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {errors.email.message}
-                        </p>
-                    )}
-                </div>
+
+
+                <Input
+                    label="Email"
+                    id="email"
+                    register={register}
+                    errors={errors}
+                />
+
+
 
                 <div className="flex justify-end gap-3">
 

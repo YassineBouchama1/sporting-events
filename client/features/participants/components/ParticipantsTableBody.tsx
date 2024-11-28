@@ -10,12 +10,14 @@ interface Props {
     participants: Participant[];
     onDeleteClick: (participant: Participant) => void;
     isDeletingParticipant: boolean;
+    isParticipantsLoading: boolean;
 }
 
 const ParticipantsTableBody = ({
     participants,
     onDeleteClick,
-    isDeletingParticipant
+    isDeletingParticipant,
+    isParticipantsLoading
 }: Props) => {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editName, setEditName] = useState("");
@@ -52,23 +54,63 @@ const ParticipantsTableBody = ({
         setEditName("");
     };
 
+
+
+    // skeleton loader
+    if (isParticipantsLoading) {
+        return (
+            <tbody className="ltr:text-left rtl:text-right">
+                {[...Array(5)].map((_, index) => (
+                    <tr key={index} className="border-b ">
+
+                        <td className=" py-4 h-4 ">
+                            <div className="bg-gray-800 rounded-full text-gray-800">
+                                loading...
+                            </div>
+                        </td>
+                        <td className=" py-4 h-4 ">
+                            <div className="px-4 bg-gray-800 rounded-full text-gray-800">
+                                loading...
+                            </div>
+                        </td>
+                        <td className=" py-4 h-4 ">
+                            <div className="px-15 bg-gray-800 rounded-full text-gray-800">
+                                loading...
+                            </div>
+                        </td>
+
+                        <td className=" py-4  flex gap-x-2 w-full h-full items-center justify-center">
+                            <div className="bg-gray-800 rounded-full text-gray-800 w-20 h-full">
+                                loading...
+                            </div>
+                            <div className="bg-gray-800 rounded-full text-gray-800 w-20 h-full">
+                                loading...
+                            </div>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+
+        );
+    }
+
     return (
-        <tbody className="bg-gray-800 divide-y divide-gray-800">
+        <tbody className="bg-gray-900 divide-y divide-gray-800">
             {participants.map((participant, index) => (
                 <tr
                     key={participant._id}
-                    className="hover:bg-gray-900/85 transition-colors"
+                    className="hover:bg-gray-800/45 duration-300 transition-colors"
                 >
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {index + 1}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+                    <td className="px-6 py-4 max-w-[20px] whitespace-nowrap text-sm text-white">
                         {editingId === participant._id ? (
                             <input
                                 type="text"
                                 value={editName}
                                 onChange={(e) => setEditName(e.target.value)}
-                                className="bg-gray-700 text-white px-2 py-1 rounded"
+                                className="bg-gray-700 text-white  rounded"
                                 disabled={isUpdatingParticipant}
                             />
                         ) : (
