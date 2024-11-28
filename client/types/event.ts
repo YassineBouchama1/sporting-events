@@ -15,7 +15,7 @@ export const EventFormCreateSchema = z.object({
     startDate: z.string().min(1, "Start date is required"),
     endDate: z.string().min(1, "End date is required"),
     status: z.enum(["PUBLIC", "PRIVATE"]),
-    participantIds: z.array(z.string()).min(1, "At least one participant is required"),
+    // participantIds: z.array(z.string()).min(1, "At least one participant is required"),
 });
 
 

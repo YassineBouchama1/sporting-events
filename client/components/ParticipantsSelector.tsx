@@ -49,20 +49,19 @@ const ParticipantsSelector: React.FC<ParticipantsSelectorProps> = ({
     };
 
     return (
-        <div className="space-y-12">
-            <div className="border-b border-gray-900/10 pb-12">
 
-                <div className="mt-10 flex flex-col gap-y-8">
-                    <SimpleSelect
-                        disabled={isLoading || disabled}
-                        label="Participants"
-                        options={participantOptions}
-                        onChange={handleChange}
-                        value={selectedValues}
-                    />
-                </div>
-            </div>
+
+        <div className=" flex flex-col py-4">
+            <SimpleSelect
+                disabled={isLoading || disabled}
+                label="Select Participants"
+                options={participantOptions}
+                onChange={handleChange}
+                value={selectedValues}
+            />
         </div>
+
+
     );
 };
 

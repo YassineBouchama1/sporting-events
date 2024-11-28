@@ -193,6 +193,10 @@ const EventDetails = memo(() => {
                     <h2 className="text-xl font-semibold text-white mb-4">
                         Participants ({event.participants.length})
                     </h2>
+                    {isEditing && <ParticipantsSelector
+                        participantIds={selectedParticipants}
+                        onParticipantsChange={setSelectedParticipants}
+                    />}
                     <div className="bg-gray-800 rounded-lg overflow-hidden">
                         <table className="w-full">
                             <thead>
@@ -224,10 +228,7 @@ const EventDetails = memo(() => {
                             </tbody>
                         </table>
                     </div>
-                    {isEditing && <ParticipantsSelector
-                        participantIds={selectedParticipants}
-                        onParticipantsChange={setSelectedParticipants}
-                    />}
+
 
 
                 </div>

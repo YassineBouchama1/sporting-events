@@ -1,23 +1,28 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-hot-toast';
 import { EventFormCreateData, EventFormCreateSchema } from '@/types/event';
-import { useParticipants } from '@/hooks/useParticipants';
 import { useEventFormStore } from '../store/eventFormStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '@/utils/axiosInstance';
 import { delay } from '@/utils';
 
+
+interface CreateEventData extends EventFormCreateData {
+    participantIds?: string[]
+}
+
+
 export const useEventForm = () => {
     const queryClient = useQueryClient();
     const { closeModal } = useEventFormStore();
-    const { data: participants = [], isLoading: isLoadingParticipants } = useParticipants();
+    const [selectedParticipants, setSelectedParticipants] = useState<string[]>([]);
 
     // mfunction for mutation create event
-    const createEventFn = useCallback(async (data: EventFormCreateData) => {
+    const createEventFn = useCallback(async (data: CreateEventData) => {
 
         await delay(2000) // add delay to check loading 
         const response = await axiosInstance.post('/events', data);
@@ -55,7 +60,7 @@ export const useEventForm = () => {
             startDate: '',
             endDate: '',
             status: 'PUBLIC' as const,
-            participantIds: [] as string[],
+
         },
     }), []);
 
@@ -69,28 +74,24 @@ export const useEventForm = () => {
 
 
 
+
+
     // hanlde on submit 
     const onSubmit = useCallback(async (data: EventFormCreateData) => {
         const startDate = new Date(data.startDate);
         const endDate = new Date(data.endDate);
-
         // chekc if date validate
         if (endDate <= startDate) {
             toast.error('End date must be after start date');
             return;
         }
 
-        createEvent(data);
-    }, [createEvent]);
+        console.log(data)
+        createEvent({ ...data, participantIds: selectedParticipants });
+    }, [createEvent, selectedParticipants]);
 
 
-    // refactore data participants for selector
-    const participantOptions = useMemo(() =>
-        participants.map((user) => ({
-            value: user._id,
-            label: user.name
-        }))
-        , [participants]);
+
 
 
     // memorize all functions to avoid rerande
@@ -100,8 +101,8 @@ export const useEventForm = () => {
         control,
         errors,
         isPending,
-        isLoadingParticipants,
-        participantOptions,
+        setSelectedParticipants,
+        selectedParticipants,
         onSubmit
     }), [
         register,
@@ -109,8 +110,8 @@ export const useEventForm = () => {
         control,
         errors,
         isPending,
-        isLoadingParticipants,
-        participantOptions,
+        setSelectedParticipants,
+        selectedParticipants,
         onSubmit
     ]);
 

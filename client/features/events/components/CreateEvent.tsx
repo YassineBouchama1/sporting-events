@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 import { RiLoader2Fill } from 'react-icons/ri';
 import Button from '@/components/Button';
 import Input from '@/components/inputs/Input';
-import Select from '@/components/inputs/Select';
 import { useEventForm } from '../hooks/useEventForm';
+import ParticipantsSelector from '@/components/ParticipantsSelector';
 
 const CreateEvent = memo(() => {
     const {
@@ -16,18 +16,12 @@ const CreateEvent = memo(() => {
         control,
         errors,
         isPending,
-        isLoadingParticipants,
-        participantOptions,
+        setSelectedParticipants,
+        selectedParticipants,
         onSubmit
     } = useEventForm();
 
-    // here imemoized participant selection handler to avoid rerande
-    const handleParticipantChange = useCallback((selectedOptions: any) => {
-        const selectedIds = Array.isArray(selectedOptions)
-            ? selectedOptions.map(option => option.value)
-            : [];
-        return selectedIds;
-    }, []);
+
 
     //  cached status
     const statusOptions = useMemo(() => [
@@ -102,35 +96,17 @@ const CreateEvent = memo(() => {
                         </span>
                     )}
                 </div>
-             
 
-                <Controller
-                    name="participantIds"
-                    control={control}
-                    render={({ field }) => (
-                        <Select
-                            label="Participants"
-                            disabled={isLoadingParticipants}
-                            value={field.value?.map(id =>
-                                participantOptions.find(option => option.value === id)
-                            ).filter(Boolean) || []}
-                            onChange={(selectedOptions) => {
-                                field.onChange(handleParticipantChange(selectedOptions));
-                            }}
-                            options={participantOptions}
-                        />
-                    )}
+                <ParticipantsSelector
+                    participantIds={selectedParticipants}
+                    onParticipantsChange={setSelectedParticipants}
                 />
-                {errors.participantIds && (
-                    <span className="text-red-500 text-sm">
-                        {errors.participantIds.message}
-                    </span>
-                )}
+
 
                 <div className="flex justify-end gap-4 mt-6">
                     <Button
                         type="submit"
-                        disabled={isPending || isLoadingParticipants}
+                        disabled={isPending}
                     >
                         <ButtonContent isPending={isPending} />
                     </Button>
