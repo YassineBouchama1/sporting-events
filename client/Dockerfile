@@ -2,11 +2,9 @@ FROM node:20
 
 WORKDIR /app
 
-# Step 3: Copy package.json and package-lock.json 
-COPY client/package*.json .
+COPY server/package*.json ./
 
-
-RUN npm install --production
+RUN npm install 
 
 
 COPY client .
