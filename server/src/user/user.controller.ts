@@ -5,6 +5,7 @@ import {
   Patch,
   Param,
   Delete,
+  Post,
   UseGuards,
   NotFoundException,
   BadRequestException,
@@ -13,24 +14,21 @@ import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 import { User } from './schemas/user.schema';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('user')
-
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
   @Get()
-  findAll(
-
-  ) {
+  findAll() {
     try {
-      return this.userService.findAll()
+      return this.userService.findAll();
     } catch (error) {
       throw new BadRequestException('Failed to retrieve users');
     }
   }
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
-
     try {
       const user = await this.userService.findOne(id);
       if (!user) {
@@ -38,17 +36,30 @@ export class UserController {
       }
       return user;
     } catch (error) {
+      throw new BadRequestException('Failed ', error.message);
+    }
+  }
 
+  @Post()
+  create(
+ 
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<User> {
+    try {
+      return this.userService.create( createUserDto);
+    } catch (error) {
       throw new BadRequestException('Failed ', error.message);
     }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<User> {
     try {
       return this.userService.update(id, updateUserDto);
     } catch (error) {
-
       throw new BadRequestException('Failed ', error.message);
     }
   }
@@ -58,7 +69,6 @@ export class UserController {
     try {
       return this.userService.remove(id);
     } catch (error) {
-
       throw new BadRequestException('Failed ', error.message);
     }
   }

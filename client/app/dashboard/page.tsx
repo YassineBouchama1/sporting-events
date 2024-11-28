@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 
 import FormBtn from '@/features/events/components/FormBtn';
 import ListEvents from '@/features/events/components/ListEvents';

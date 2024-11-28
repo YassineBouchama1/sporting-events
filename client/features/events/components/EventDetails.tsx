@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RiLoader2Fill, RiEditLine, RiSaveLine, RiDeleteBin6Line } from "react-icons/ri";
@@ -11,43 +11,23 @@ import useEventDetails from "../hooks/useEventDetails";
 import { useEventPDF } from "@/hooks/useEventsPDF";
 import { useEventDetailStore } from "../store/eventDetailStore";
 import { formatDateTime } from "@/utils";
-
 import { EventFormUpdateData, EventFormUpdateSchema } from "@/types/event";
-import { useDeleteParticipant } from "@/features/participants/hooks/useDeleteParticipant";
+import ParticipantsSelector from "@/components/ParticipantsSelector";
+import { useDeleteParticipant } from "../hooks/useDeleteParticipant";
 
 const EventDetails = memo(() => {
     const [isEditing, setIsEditing] = useState(false);
     const { eventId } = useEventDetailStore();
-
-    if (!eventId) return <h2>there is error</h2> // check if event id exist 
-
-
+    const { deleteParticipant, isDeletingParticipant } = useDeleteParticipant();
+    const [selectedParticipants, setSelectedParticipants] = useState<string[]>([]);
     const {
         event,
         isLoading,
         updateEvent,
         isUpdating,
-    } = useEventDetails(eventId);
-    const { deleteParticipant, isDeletingParticipant } = useDeleteParticipant();
-
-
-
-
-    // reset form when event data changes
-    useEffect(() => {
-        if (event) {
-            reset({
-                name: event.name,
-                startDate: formatDateTime(event.startDate),
-                endDate: formatDateTime(event.endDate),
-                status: event.status,
-            });
-        }
-    }, [event]);
+    } = useEventDetails(eventId || '');
     const { generatePDF, isGenerating } = useEventPDF({ event: event! });
 
-
-    // setup config form 
     const {
         register,
         handleSubmit,
@@ -63,24 +43,8 @@ const EventDetails = memo(() => {
         } : undefined,
     });
 
-
-    // handle submit event
-    const onSubmit = async (data: EventFormUpdateData) => {
-
-
-        console.log(data)
-        updateEvent(data, {
-            onSuccess: () => {
-                setIsEditing(false);
-                reset(data);
-            },
-        });
-    };
-
-    // handle cancle btn 
-    const handleCancelEdit = () => {
-        setIsEditing(false);
-        if (event) { //  reset form 
+    useEffect(() => {
+        if (event) {
             reset({
                 name: event.name,
                 startDate: formatDateTime(event.startDate),
@@ -88,9 +52,11 @@ const EventDetails = memo(() => {
                 status: event.status,
             });
         }
-    };
+    }, [event, reset]);
 
-
+    if (!eventId) {
+        return <h2>There is error</h2>;
+    }
 
     if (isLoading) {
         return (
@@ -108,7 +74,28 @@ const EventDetails = memo(() => {
         );
     }
 
-    ;
+    const onSubmit = async (data: EventFormUpdateData) => {
+
+        console.log(selectedParticipants)
+        updateEvent({ ...data, participants: selectedParticipants }, {
+            onSuccess: () => {
+                setIsEditing(false);
+                reset(data);
+            },
+        });
+    };
+
+    const handleCancelEdit = () => {
+        setIsEditing(false);
+        if (event) {
+            reset({
+                name: event.name,
+                startDate: formatDateTime(event.startDate),
+                endDate: formatDateTime(event.endDate),
+                status: event.status,
+            });
+        }
+    };
 
     return (
         <div className="bg-gray-900 p-6 rounded-lg">
@@ -156,7 +143,6 @@ const EventDetails = memo(() => {
                             </div>
                         </Button>
                     )}
-
                 </div>
             </div>
 
@@ -207,6 +193,10 @@ const EventDetails = memo(() => {
                     <h2 className="text-xl font-semibold text-white mb-4">
                         Participants ({event.participants.length})
                     </h2>
+                    {isEditing && <ParticipantsSelector
+                        participantIds={selectedParticipants}
+                        onParticipantsChange={setSelectedParticipants}
+                    />}
                     <div className="bg-gray-800 rounded-lg overflow-hidden">
                         <table className="w-full">
                             <thead>
@@ -214,20 +204,20 @@ const EventDetails = memo(() => {
                                     <th className="px-4 py-2 text-left text-white">#</th>
                                     <th className="px-4 py-2 text-left text-white">Name</th>
                                     <th className="px-4 py-2 text-left text-white">Email</th>
-                                    <th className="px-4 py-2 text-left text-white">actions</th>
+                                    <th className="px-4 py-2 text-left text-white">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {event.participants.map((participant, index) => (
-                                    <tr key={index} className="border-t border-gray-700">
+                                    <tr key={participant._id} className="border-t border-gray-700">
                                         <td className="px-4 py-2 text-gray-300">{index + 1}</td>
                                         <td className="px-4 py-2 text-white">{participant.name}</td>
                                         <td className="px-4 py-2 text-gray-300">{participant.email}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <Button
-                                                onClick={() => deleteParticipant(participant._id)}
-                                                danger
+                                                onClick={() => deleteParticipant(participant._id, event._id?.toString())}
 
+                                                danger
                                                 disabled={isDeletingParticipant}
                                             >
                                                 <RiDeleteBin6Line className="w-4 h-4" />
@@ -238,6 +228,9 @@ const EventDetails = memo(() => {
                             </tbody>
                         </table>
                     </div>
+
+
+
                 </div>
 
                 <div className="flex justify-end mt-6">
@@ -272,7 +265,6 @@ const EventDetails = memo(() => {
                     </Button>
                 </div>
             </form>
-
         </div>
     );
 });

@@ -1,5 +1,3 @@
-
-import { Event } from '@/types/event';
 import { create } from 'zustand';
 
 

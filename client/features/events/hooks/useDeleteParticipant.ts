@@ -3,17 +3,19 @@ import { toast } from 'react-hot-toast';
 import axiosInstance from '@/utils/axiosInstance';
 
 
+interface DeleteParticipantVariables {
+    participantId: string;
+    eventId: string;
+}
+
 export const useDeleteParticipant = () => {
     const queryClient = useQueryClient();
 
-
     const deleteMutation = useMutation({
-        mutationFn: async (participantId: string) => {
-            await axiosInstance.delete(`/user/${participantId}`);
+        mutationFn: async ({ participantId, eventId }: DeleteParticipantVariables) => {
+            await axiosInstance.delete(`events/${eventId}/participants/${participantId}`);
         },
         onSuccess: () => {
-
-            // after delete invalide 
             toast.success('Participant deleted successfully');
             queryClient.invalidateQueries({ queryKey: ['participants'] });
             queryClient.invalidateQueries({ queryKey: ["event"] });
@@ -25,8 +27,12 @@ export const useDeleteParticipant = () => {
         },
     });
 
+    const deleteParticipant = (participantId: string, eventId: string) => {
+        deleteMutation.mutate({ participantId, eventId });
+    };
+
     return {
-        deleteParticipant: deleteMutation.mutate,
+        deleteParticipant,
         isDeletingParticipant: deleteMutation.isPending,
     };
 };

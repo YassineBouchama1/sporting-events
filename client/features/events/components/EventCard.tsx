@@ -92,7 +92,7 @@ const EventCard = memo(({ event }: EventCardProps) => {
         </Button>
       </div>
     ),
-    [event._id, handleDelete, isLoading, deleteButtonContent]
+    [isLoading, deleteButtonContent, handleDelete, event._id, setEvent]
   );
 
   return (

@@ -33,7 +33,7 @@ export default function SideBar() {
       <nav className="flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2">
         <Link
           className={pathname === "/dashboard" ? ACTIVE_ROUTE : INACTIVE_ROUTE}
-          href="#"
+          href="/dashboard"
         >
 
           <MdDashboard className="h-5 w-5 sm:h-6 sm:w-6" />
