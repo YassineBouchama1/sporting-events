@@ -105,7 +105,7 @@ const EventCard = memo(({ event }: EventCardProps) => {
         height={100}
       />
 
-      <h4 className="text-white text-2xl font-bold capitalize text-center truncate">
+      <h4 className="text-white text-xl font-bold capitalize text-center truncate">
         {event.name}
       </h4>
 

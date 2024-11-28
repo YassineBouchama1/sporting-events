@@ -23,16 +23,19 @@ const ListEvents: FC = ({ }) => {
 
   // if there is any error display this 
   if (error) {
-    return <div>There is error while try to fetch events <button onClick={() => refetch()}>Try Again</button></div>
+    return <div className="text-white font-extrabold">There is error while try to fetch events <button onClick={() => refetch()}>Try Again</button></div>
   }
 
   return (
     <>
+
+
       {events && events.length > 0 ? (
         events.map((event) => <EventCard key={event._id} event={event} />)
       ) : (
-        <p>No rooms available</p>
+        <p>No Event available</p>
       )}
+
       <Modal isOpen={isModalDetailOpen} onClose={() => closeModalDetail()}>
         <EventDetails />
       </Modal>
