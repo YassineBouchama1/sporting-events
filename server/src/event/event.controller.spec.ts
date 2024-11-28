@@ -5,7 +5,8 @@ import { CreateEventWithParticipantsDto } from './dto/create-event-with-particip
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { NotFoundException } from '@nestjs/common';
-import { RoleTypes, StatusUser } from '../common/types/user.enum';
+
+import { StatusEvenet } from '../common/types/event.enum';
 
 describe('EventController', () => {
     let eventController: EventController;
@@ -39,8 +40,14 @@ describe('EventController', () => {
     describe('createWithParticipants', () => {
         it('should create an event with participants', async () => {
             const dto: CreateEventWithParticipantsDto = {
-                name: 'Test Event',
-                participants: [{ name: 'John Doe', email: 'john@example.com', password: 'john@example.com',status:StatusUser.ONLINE,role:RoleTypes.Participant }],
+              name: 'Test Event',
+              status: StatusEvenet.PUBLIC,
+              startDate: '2024-12-03T10:00:00Z',
+              endDate: '2024-12-02T12:00:00Z',
+              participantIds: [
+                '6745d98b34fc9d2d59ba6822',
+                '6745d98b34fc9d2d59ba6823',
+              ],
             };
 
             const result = { _id: 'eventId', ...dto };
@@ -52,7 +59,10 @@ describe('EventController', () => {
 
     describe('create', () => {
         it('should create a simple event', async () => {
-            const dto: CreateEventDto = { name: 'Simple Event' };
+            const dto: CreateEventDto = {  name: 'Test Event',
+              status: StatusEvenet.PUBLIC,
+              startDate: '2024-12-03T10:00:00Z',
+              endDate: '2024-12-02T12:00:00Z'};
 
             const result = { _id: 'eventId', ...dto };
             jest.spyOn(eventService, 'create').mockResolvedValue(result as any);
@@ -72,7 +82,13 @@ describe('EventController', () => {
 
     describe('findOne', () => {
         it('should return a single event', async () => {
-            const result = { _id: 'eventId', name: 'Event 1' };
+            const result = {
+              _id: 'eventId',
+              name: 'Test Event',
+              status: StatusEvenet.PUBLIC,
+              startDate: '2024-12-03T10:00:00Z',
+              endDate: '2024-12-02T12:00:00Z',
+            };
             jest.spyOn(eventService, 'findOne').mockResolvedValue(result as any);
 
             expect(await eventController.findOne('eventId')).toEqual(result);
