@@ -15,12 +15,12 @@ export default function HeroLanding() {
           <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-white md:text-6xl md:tracking-tight">
             <span>Start</span>{" "}
             <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-[#715ab3] to-[#3749A6] lg:inline">
-              Your Dream Evenet!
+              Your Dream Event!
             </span>{" "}
             <span>Now.</span>
           </h1>
           <p className="px-0 mb-8 text-lg text-white md:text-xl lg:px-24">
-            This is dashboard help u to create events and manage it Easy
+            This is dashboard help u to create event and manage it Easy
           </p>
           <div className="mb-4 space-x-0 md:space-x-2 md:mb-8 flex items-center justify-center">
             <Link
