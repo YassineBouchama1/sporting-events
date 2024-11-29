@@ -1,0 +1,85 @@
+[{
+  "_id": {
+    "$oid": "6748328e56f70726fabff2c8"
+  },
+  "name": "Admin",
+  "email": "bouchamajob@gmail.com",
+  "password": "$2b$10$I4ZyCfuCqxtgOF3uoTyKje4kZeaV01lu98NHeHwA/RakW861nr5xm",
+  "role": "Admin",
+  "status": "OFFLINE",
+  "createdAt": {
+    "$date": "2024-11-28T09:06:22.123Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-28T09:06:22.123Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67485008830e8c950be4a85c"
+  },
+  "name": "siso2",
+  "email": "bouchamsdajob@gmail.com",
+  "password": "$2b$10$Pxkajf5NotwJCcUCDQaNVOSKIeRgeQtFwpfMBkOOXJG8ltpYd74qG",
+  "role": "Participant",
+  "status": "OFFLINE",
+  "createdAt": {
+    "$date": "2024-11-28T11:12:08.092Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-28T12:44:40.451Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67486af7830e8c950be4a8bf"
+  },
+  "name": "Updated",
+  "email": "sisko92@gmail.com",
+  "password": "$2b$10$SpfSTW5fAvWUvo.oS5Pdhu0RzKq5M3SlD72.PohYh8jENZK8W5eti",
+  "role": "Participant",
+  "status": "OFFLINE",
+  "createdAt": {
+    "$date": "2024-11-28T13:07:03.464Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-28T14:48:00.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67488299f6240f0670f74027"
+  },
+  "name": "hello",
+  "email": "siskdso9me@gmail.com",
+  "password": "$2b$10$jJ4f6aY1jWMxtXLB5Z1UzOOeogspb7B00vGA/9pubI83UzXDA8/zu",
+  "role": "Participant",
+  "status": "OFFLINE",
+  "createdAt": {
+    "$date": "2024-11-28T14:47:53.730Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-28T14:47:53.730Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6749868586d091a56c4bb2d2"
+  },
+  "name": "Yassine Bouchama",
+  "email": "sisko9me@gmail.com",
+  "password": "$2b$10$zYN/Xu.X8yQM80/yOunYSO820oosxmJm3qrvKhE.Tc/fxmZKkhcqa",
+  "role": "Participant",
+  "status": "OFFLINE",
+  "createdAt": {
+    "$date": "2024-11-29T09:16:53.254Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-29T09:16:53.254Z"
+  },
+  "__v": 0
+}]

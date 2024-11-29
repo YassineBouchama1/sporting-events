@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import SideBar from "@/components/SideBar";
 
 export const metadata: Metadata = {
-  title: "Watch Part | Dashboard",
-  description: "Watch video together",
+  title: "Event Manage | Dashboard",
+  description: "Event dahsboard for managment ",
 };
 export default async function DashboardLayout({
   children,
